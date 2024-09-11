@@ -18,8 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/onboarding', [OnboardingController::class, 'step1'])->name('onboarding.step1');
-Route::get('/onboarding/step2', [OnboardingController::class, 'step2'])->name('onboarding.step2');
-Route::get('/onboarding/step3', [OnboardingController::class, 'step3'])->name('onboarding.step3');
+//Création des routes pour le onboarding
+Route::prefix('onboarding')->name('onboarding.')->group(function () {
+    Route::get('/', [OnboardingController::class, 'step1'])->name('step1');
+    Route::get('/step2', [OnboardingController::class, 'step2'])->name('step2');
+    Route::get('/step3', [OnboardingController::class, 'step3'])->name('step3');
+});
 
 require __DIR__.'/auth.php';

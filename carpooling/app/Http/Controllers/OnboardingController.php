@@ -18,8 +18,6 @@ class OnboardingController extends Controller
 
     public function step3()
     {
-        // Quand l'utilisateur arrive à l'écran 3, l'onboarding est terminé
-        session(['onboarding_completed' => true]);
-        return redirect('/home');
+        return view('onboarding.step3');
     }
 }

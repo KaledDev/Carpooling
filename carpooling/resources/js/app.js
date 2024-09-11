@@ -1,20 +1,41 @@
+import Alpine from 'alpinejs';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import './bootstrap';
 
-import Alpine from 'alpinejs';
-
 window.Alpine = Alpine;
-
 Alpine.start();
 
-document.getElementById('animated-button').addEventListener('click', function(e) {
-e.preventDefault();
-const pageTransition = document.getElementById('page-transition');
 
-// Ajoute la classe active pour lancer l'animation
-pageTransition.classList.add('active');
+document.addEventListener('DOMContentLoaded', function() {
+    var mapElement = document.getElementById('map');
+    if (!mapElement) {
+        console.error('Element #map not found');
+        return;
+    }
 
-// Attends la fin de l'animation avant de rediriger
-setTimeout(function() {
-window.location.href = e.target.closest('a').href;
-}, 600); // 600ms correspond à la durée de l'animation CSS
+    // Coordonnées géographiques du Burkina Faso
+    var burkinaFasoCoords = [12.2344, -1.5616]; // Latitude et Longitude du centre du Burkina Faso
+
+    var map = L.map('map').setView(burkinaFasoCoords, 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    document.getElementById('useMyLocation').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+                
+                console.log('Latitude: ' + lat);
+                console.log('Longitude: ' + lon);
+                
+                map.setView([lat, lon], 13); // Mettre à jour la vue de la carte avec la position de l'utilisateur
+            });
+        } else {
+            alert('La géolocalisation n\'est pas supportée par ce navigateur.');
+        }
+    });
 });

@@ -25,4 +25,12 @@ Route::prefix('onboarding')->name('onboarding.')->group(function () {
     Route::get('/step3', [OnboardingController::class, 'step3'])->name('step3');
 });
 
+Route::get('enable_location', function() {
+    return view('location');
+})->name('location');
+
+Route::get('appWelcome', function() {
+    return view('WelcomeApp');
+})->name('appWelcome');
+
 require __DIR__.'/auth.php';

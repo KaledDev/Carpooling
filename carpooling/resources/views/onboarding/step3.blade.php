@@ -3,6 +3,7 @@
 @section('title', 'Onboarding étape 3')
 
 @section('content')
+<div class="p-4">
 <div class="min-h-screen flex flex-col items-center justify-between relative px-4 py-6">
     <a href="{{ route('onboarding.step2') }}" class="absolute top-4 left-4 text-text-primary hover:underline text-sm">Retour</a>
     <a href="" class="absolute top-4 right-4 text-text-primary hover:underline text-sm">Passer</a>
@@ -16,8 +17,9 @@
         </p>
     </div>
 
-    <div class="mb-4">
+    <a href="{{ route('location') }}" class="mb-4">
         <img src="{{ asset('images/progress3.svg') }}" alt="Progression" class="w-2/3 h-auto max-w-lg ml-8 cursor-pointer pulse-effect">
-    </div>
+    </a>
+</div>
 </div>
 @endsection

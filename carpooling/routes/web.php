@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OnboardingController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('onboarding.step1');
 });
 
 Route::get('/dashboard', function () {
@@ -32,5 +32,6 @@ Route::get('enable_location', function() {
 Route::get('appWelcome', function() {
     return view('WelcomeApp');
 })->name('appWelcome');
+
 
 require __DIR__.'/auth.php';

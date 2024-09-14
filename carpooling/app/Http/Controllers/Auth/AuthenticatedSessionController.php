@@ -22,13 +22,31 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $request->authenticate();
+        // Récupération de l'entrée utilisateur (email ou numéro de téléphone)
+        $login = $request->input('login');
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
-        $request->session()->regenerate();
+        // Préparation des identifiants
+        $credentials = [
+            $fieldType => $login,
+            'password' => $request->input('password'),
+        ];
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Tentative de connexion avec les identifiants
+        if (Auth::attempt($credentials)) {
+            // Régénération de la session pour la sécurité
+            $request->session()->regenerate();
+
+            // Redirection après connexion réussie
+            return redirect()->intended(route('dashboard', absolute: false));
+        } else {
+            // Redirection avec message d'erreur si échec de la connexion
+            return back()->withErrors([
+                'login' => 'Les identifiants sont incorrects.',
+            ]);
+        }
     }
 
     /**

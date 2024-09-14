@@ -1,47 +1,47 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.main')
 
-    <form method="POST" action="{{ route('login') }}">
+@section('content')
+<div class="flex flex-col items-center justify-center h-screen p-6">
+
+    <!-- Barre de retour -->
+    <div class="absolute top-4 left-4 flex items-center">
+        <a href="{{ route('appWelcome') }}" class="flex items-center text-gray-600 hover:text-gray-800">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </a>
+    </div>
+
+    <h1 class="text-2xl font-bold text-text-primary mb-4">Connexion</h1>
+    <p class="text-lg text-text-secondary mb-8">Connectez-vous pour accéder à votre compte.</p>
+
+    <form method="POST" action="{{ route('login') }}" class="w-full max-w-md">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <!-- Email ou Numéro de téléphone -->
+        <input type="text" name="login" placeholder="Email ou Numéro de téléphone" class="block w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary700" :value="old('login')" required autofocus />
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!-- Mot de passe -->
+        <input type="password" name="password" placeholder="Mot de passe" class="block w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary700" required />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+        <!-- Mot de passe oublié -->
+        <div class="flex mt-8 items-center justify-between mb-4">
+            <label class="flex items-center">
+                <input type="checkbox" name="remember" class="h-4 w-4 text-primary700 focus:ring-primary700" />
+                <span class="ml-2 text-text-secondary">Se souvenir de moi</span>
             </label>
-        </div>
 
-        <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a class="text-sm text-primary700 hover:underline" href="{{ route('password.request') }}">
+                    {{ __('Mot de passe oublié?') }}
                 </a>
             @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
         </div>
+
+        <!-- Bouton Se connecter -->
+        <button type="submit" class="w-full mt-6 py-3 px-6 bg-primary700 text-white font-semibold rounded-lg hover:bg-primary800 focus:outline-none focus:ring-2 focus:ring-primary700">
+            Se connecter
+        </button>
     </form>
-</x-guest-layout>
+</div>
+@endsection

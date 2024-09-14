@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
 <div class="flex flex-col items-center justify-between h-screen p-6 bg-gray-100">

@@ -1,25 +1,38 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+@extends('layouts.main')
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('content')
+    <div class="flex flex-col items-center justify-center h-screen p-6">
 
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
+        <!-- Barre de retour -->
+        <div class="absolute top-4 left-4 flex items-center">
+            <a href="{{ route('appWelcome') }}" class="flex items-center text-gray-600 hover:text-gray-800">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </a>
+        </div>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+        <!-- Titre -->
+        <h1 class="text-2xl font-bold text-text-primary mb-4">Réinitialisation du mot de passe</h1>
+        <p class="text-lg text-text-secondary mb-8">
+            {{ __('Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.') }}
+        </p>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <!-- Formulaire de réinitialisation du mot de passe -->
+        <form method="POST" action="{{ route('password.email') }}" class="w-full max-w-md">
+            @csrf
+
+            <!-- Adresse e-mail -->
+            <input type="email" name="email" id="email" placeholder="Adresse e-mail" class="block w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary700" :value="old('email')" required autofocus />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            <!-- Bouton Envoyer le lien de réinitialisation -->
+            <button type="submit" class="w-full mt-6 py-3 px-6 bg-primary700 text-white font-semibold rounded-lg hover:bg-primary800 focus:outline-none focus:ring-2 focus:ring-primary700">
+                {{ __('Envoyer le lien de réinitialisation') }}
+            </button>
+        </form>
+    </div>
+    @endsection

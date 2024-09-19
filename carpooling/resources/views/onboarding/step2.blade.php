@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-4">
     <div class="min-h-screen flex flex-col items-center justify-between relative px-4 py-6">
-        <a href="{{ route('onboarding.step1') }}" class="absolute top-4 left-4 text-text-primary hover:underline text-sm">Retour</a>
+        <a href="{{ route('location') }}" class="absolute top-4 left-4 text-text-primary hover:underline text-sm">Retour</a>
         <a href="{{ route('onboarding.step3') }}" class="absolute top-4 right-4 text-text-primary hover:underline text-sm">Passer</a>
 
         <div class="flex flex-col items-center justify-center flex-grow text-center mt-4 w-full max-w-full">

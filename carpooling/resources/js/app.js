@@ -1,3 +1,4 @@
+import '@fortawesome/fontawesome-free/js/all.js';
 import Alpine from 'alpinejs';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -37,5 +38,17 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('La géolocalisation n\'est pas supportée par ce navigateur.');
         }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const closeButtons = document.querySelectorAll('.close-btn');
+
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Remonte jusqu'au parent div et cache l'élément
+            const messageDiv = this.parentElement;
+            messageDiv.style.display = 'none';
+        });
     });
 });

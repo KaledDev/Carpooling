@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth', 'isPassager']], function () {
     Route::get('/passager/trajets/{id}', [PassagerController::class, 'detail'])->name('passager.trajets.details'); // Détails des trajets
     Route::post('/passager/trajets/{id}/reserver', [PassagerController::class, 'reserver'])->name('passager.trajets.reserver');
     Route::get('/passager/reservations', [PassagerController::class, 'reservations'])->name('passager.reservations.index');
+    Route::get('/trajets/search', [PassagerController::class, 'search'])->name('trajets.search');
 
 });
 require __DIR__.'/auth.php';

@@ -79,5 +79,32 @@ class PassagerController extends Controller
         return view('passager.reservations.index', compact('reservations'));
     }
 
-    
+    public function search(Request $request) {
+
+    $request->validate([
+        'lieu_depart' => 'required|string|max:255',
+        'lieu_arrive' => 'required|string|max:255',
+        'date' => 'nullable|date',
+    ]);
+
+    // Récupérer les critères de recherche
+    $lieu_depart = $request->input('lieu_depart');
+    $lieu_arrive = $request->input('lieu_arrive');
+    $date = $request->input('date');
+
+    // Rechercher les trajets correspondants
+    $query = Trajet::where('lieu_depart', 'like', '%' . $lieu_depart . '%')
+                   ->where('lieu_arrive', 'like', '%' . $lieu_arrive . '%');
+
+    if ($date) {
+        $query->whereDate('date', $date);
+    }
+
+    $trajets = $query->get();
+
+    // Retourner la vue avec les résultats
+    return view('passager.trajets.search_results', compact('trajets'));
+}
+
+
 }

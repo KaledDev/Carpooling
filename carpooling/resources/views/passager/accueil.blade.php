@@ -21,9 +21,29 @@
 
 
     <!-- Section principale pour le contenu de la page -->
-    <div class="container mx-auto p-4">
-        <!-- Contenu spécifique aux passagers ici -->
+    <div class="flex items-center justify-center min-h-screen">
+        <form action="{{ route('trajets.search') }}" method="GET" class="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+            <div class="mb-6">
+                <label for="depart" class="block text-text-primary">Départ</label>
+                <input type="text" name="lieu_depart" id="depart" class="w-full p-2 border rounded" placeholder="Entrez la ville de départ" required>
+            </div>
+    
+            <div class="mb-6">
+                <label for="destination" class="block text-text-primary">Destination</label>
+                <input type="text" name="lieu_arrive" id="destination" class="w-full p-2 border rounded" placeholder="Entrez la ville de destination" required>
+            </div>
+    
+            <div class="mb-6">
+                <label for="date" class="block text-text-primary">Date</label>
+                <input type="date" name="date" id="date" class="w-full p-2 border rounded">
+            </div>
+    
+            <button type="submit" class="bg-primary700 text-white px-6 py-3 rounded w-full">Rechercher</button>
+        </form>
     </div>
+    
+    
+
 
     <!-- Navigation en bas -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg rounded-t-xl">
@@ -36,7 +56,7 @@
                 <i class="fas fa-route text-text-secondary"></i>
                 <span class="text-xs mt-1 text-text-secondary">Trajets</span>
             </a>
-            <a href="" class="flex flex-col items-center">
+            <a href="{{route('passager.reservations.index')}}" class="flex flex-col items-center">
                 <i class="fas fa-calendar-day text-text-secondary"></i>
                 <span class="text-xs mt-1 text-text-secondary">Mes Réservations</span>
             </a>

@@ -17,7 +17,6 @@
 
     <form method="POST" action="{{ route('inscription.store') }}" class="w-full max-w-md">
         @csrf
-
         <!-- Nom -->
         <input type="text" name="name" placeholder="Nom" class="block w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary700" >
 

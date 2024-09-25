@@ -24,7 +24,7 @@
                 <i class="fas fa-envelope text-text-secondary"></i>
                 <span class="text-xs mt-1 text-text-secondary">Messages</span>
             </a>
-            <a href="" class="flex flex-col items-center">
+            <a href="{{route('profile.edit')}}" class="flex flex-col items-center">
                 <i class="fas fa-user text-text-secondary"></i>
                 <span class="text-xs mt-1 text-text-secondary">Profil</span>
             </a>

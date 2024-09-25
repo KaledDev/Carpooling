@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
             $request->session()->regenerate();
 
             // Redirection après connexion réussie
-            return redirect()->intended(route('dashboard', absolute: false));
+            return redirect()->intended(route(auth()->user()->role === 'passager' ? 'passager.accueil' : 'conducteur.accueil', absolute: false));
         } else {
             // Redirection avec message d'erreur si échec de la connexion
             return back()->withErrors([

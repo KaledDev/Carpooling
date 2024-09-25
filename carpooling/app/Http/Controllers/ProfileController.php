@@ -26,7 +26,17 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        // Exclure la mise à jour des champs 'role' et 'gender'
+        $data = $request->except(['role', 'gender', 'phone']);
+
+        // Gérer la photo de profil
+        if ($request->hasFile('profile_photo')) {
+        $path = $request->file('profile_photo')->store('profile_photos', 'public');
+        $data['profile_photo'] = $path; // Enregistrer le chemin dans la base de données
+    }
+
+        // Remplir les autres champs
+        $request->user()->fill($data);
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

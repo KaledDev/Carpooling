@@ -23,6 +23,7 @@ class User extends Authenticatable
         'phone',
         'gender',
         'role',
+        'profile_photo',
     ];
 
     public function trajets() {
@@ -34,6 +35,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reservation::class, 'passager_id');
     }
+
     /**
      * The attributes that should be hidden for serialization.
      *

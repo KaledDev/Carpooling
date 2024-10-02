@@ -36,6 +36,16 @@ class User extends Authenticatable
         return $this->hasMany(Reservation::class, 'passager_id');
     }
 
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

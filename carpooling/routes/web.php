@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ConducteurController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PassagerController;
 
 Route::get('/', function () {
@@ -50,6 +51,8 @@ Route::group(['middleware' => ['auth', 'isConducteur']], function () {
         Route::put('/conducteur/reservations/{reservation}', [ConducteurController::class, 'updateReservation'])->name('conducteur.reservations.update'); // Mise à jour du statut d'une réservation
         Route::get('/conducteur/reservations', [ConducteurController::class, 'reservations'])->name('conducteur.reservations.index');
         Route::get('/conducteur/trajets/{trajet}/reservations', [ConducteurController::class, 'showReservations'])->name('conducteur.reservations.show');
+        // Route to view the profile of a passager (read-only)
+        Route::get('/conducteur/passagers/{id}/profile', [ConducteurController::class, 'showPassagerProfile'])->name('conducteur.passagers.profile');
 
 });
 
@@ -62,4 +65,13 @@ Route::group(['middleware' => ['auth', 'isPassager']], function () {
     Route::get('/trajets/search', [PassagerController::class, 'search'])->name('trajets.search');
 
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/{user}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+});
+
+
+
 require __DIR__.'/auth.php';

@@ -60,7 +60,7 @@
                 <i class="fas fa-calendar-day text-text-secondary"></i>
                 <span class="text-xs mt-1 text-text-secondary">Mes Réservations</span>
             </a>
-            <a href="" class="flex flex-col items-center">
+            <a href="{{route('messages.index')}}" class="flex flex-col items-center">
                 <i class="fas fa-envelope text-text-secondary"></i>
                 <span class="text-xs mt-1 text-text-secondary">Messages</span>
             </a>

@@ -26,7 +26,18 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @foreach($trajet->reservations as $reservation)
                     <tr>
-                        <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-text-secondary truncate">{{ $reservation->passager->name }}</td>
+                        <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-text-secondary">
+                            <div class="flex items-center -ml-3">
+                                @if($reservation->passager->profile_photo)
+                                    <img src="{{ asset('storage/' . $reservation->passager->profile_photo) }}" alt="Photo de profil" class="w-10 h-10 rounded-full inline-block mr-3">
+                                @else
+                                    <img src="{{ asset('images/default-profile.png') }}" alt="Photo de profil par défaut" class="w-10 h-10 rounded-full inline-block mr-3">
+                                @endif
+                                <!-- Link to passager's profile -->
+                                <a href="{{ route('conducteur.passagers.profile', $reservation->passager->id) }}" class="text-primary hover:underline">{{ $reservation->passager->name }}</a>
+                            </div>
+                        </td>
+                        
                         <td class="px-3 py-4 mr-2 whitespace-nowrap text-sm text-text-secondary">{{ $reservation->created_at->format('d/m/Y H:i') }}</td>
                         <td class="py-4 whitespace-nowrap text-sm">
                             <form action="{{ route('conducteur.reservations.update', $reservation->id) }}" method="POST">
@@ -44,7 +55,6 @@
             </tbody>
         </table>
     </div>
-    
     @endif
 </div>
 @endsection

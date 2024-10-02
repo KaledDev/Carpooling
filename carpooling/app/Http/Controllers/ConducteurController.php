@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\Trajet;
 use App\models\Reservation;
+use App\models\User;
 
 class ConducteurController extends Controller
 {
@@ -114,7 +115,13 @@ class ConducteurController extends Controller
         return view('conducteur.reservations.show', compact('trajet', 'reservations'));
     }
 
-
+    public function showPassagerProfile($id) {
+        // Retrieve the user (passager) by their ID
+        $passager = User::findOrFail($id);
+    
+        // Return a view to show the passager's profile
+        return view('conducteur.passager.profile', compact('passager'));
+    }
     // Supprimer un trajet
     public function destroy($id) {
 
